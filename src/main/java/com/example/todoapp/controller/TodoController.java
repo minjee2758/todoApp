@@ -2,7 +2,10 @@ package com.example.todoapp.controller;
 
 import com.example.todoapp.dto.RequestDto;
 import com.example.todoapp.dto.ResponseDto;
+import com.example.todoapp.entity.Todo;
 import com.example.todoapp.service.TodoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +35,14 @@ public class TodoController {
         return todoService.findTodoById(id);
     }
 
-    @PostMapping("/{id}")
-    public ResponseDto updateTodoById(@PathVariable Long id){
-        return todoService.
+    @PutMapping("/update")
+    public ResponseEntity<String> updateTodoById(@RequestBody RequestDto dto){
+        boolean isUpdated = todoService.updateTodoById(dto);
+        if (isUpdated){
+            return ResponseEntity.ok("업뎃 됨!");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 업뎃입니다");
+        }
     }
 }

@@ -15,4 +15,11 @@ public class ResponseDto {
     private Date doDate; //예정 날짜
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    public String getPassword() {
+        String password = "SELECT password FROM todo";
+        return password;
+    }
+//    private String password;
+
 }

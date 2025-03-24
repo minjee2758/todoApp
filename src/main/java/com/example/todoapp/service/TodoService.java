@@ -9,5 +9,7 @@ public interface TodoService {
     ResponseDto saveTodo(RequestDto dto);
     List<ResponseDto> findAllTodo();
     ResponseDto findTodoById(Long id);
-    RequestDto updateTodoById(Long id);
+    boolean updateTodoById(RequestDto dto);
+    boolean deleteTodoById(RequestDto dto);
+
 }

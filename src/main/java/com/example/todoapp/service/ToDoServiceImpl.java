@@ -37,8 +37,14 @@ public class ToDoServiceImpl implements TodoService{
     }
 
     @Override
-    public RequestDto updateTodoById(Long id) {
-        return null;
+    public boolean updateTodoById(RequestDto dto) {
+        return todoRepository.updateTodoById(dto);
     }
+
+    @Override
+    public boolean deleteTodoById(RequestDto dto) {
+        return false;
+    }
+
 
 }

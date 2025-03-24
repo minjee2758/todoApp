@@ -1,11 +1,14 @@
 package com.example.todoapp.repository;
 
+import com.example.todoapp.dto.RequestDto;
 import com.example.todoapp.entity.Todo;
 import com.example.todoapp.dto.ResponseDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -50,6 +53,26 @@ public class JdbcTemplateTodoRepository implements TodoRepository{
                         rs.getTimestamp("updateDate").toLocalDateTime()
                 ), id
         );
+    }
+
+    @Override
+    public boolean updateTodoById(RequestDto dto) {
+        String findPW = "SELECT password FROM todo WHERE id = ?";
+        String Pw = jdbcTemplate.queryForObject(findPW, new Object[]{dto.getId()}, String.class);
+        if (!dto.getPassword().equals(Pw)) {
+
+            System.out.println("잘못된 비번");
+            return false;
+        } else {
+            String updateTodo = "UPDATE todo SET userName = ?, todo =? , updateDate = ? WHERE id= ?";
+            jdbcTemplate.update(updateTodo, dto.getUserName(), dto.getTodo(), LocalDateTime.now(),dto.getId());
+            return true;
+        }
+    }
+
+    @Override
+    public boolean deleteTodoById(RequestDto dto) {
+        return false;
     }
 
 
