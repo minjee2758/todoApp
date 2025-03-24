@@ -72,7 +72,13 @@ public class JdbcTemplateTodoRepository implements TodoRepository{
 
     @Override
     public boolean deleteTodoById(RequestDto dto) {
-        return false;
+        String sql = "DELETE FROM todo WHERE id = ?";
+        if (dto.getId() != null) {
+            jdbcTemplate.update(sql, dto.getId());
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

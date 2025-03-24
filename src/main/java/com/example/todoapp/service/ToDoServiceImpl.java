@@ -43,7 +43,7 @@ public class ToDoServiceImpl implements TodoService{
 
     @Override
     public boolean deleteTodoById(RequestDto dto) {
-        return false;
+        return todoRepository.deleteTodoById(dto);
     }
 
 

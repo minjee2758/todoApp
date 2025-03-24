@@ -45,4 +45,15 @@ public class TodoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 업뎃입니다");
         }
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteTodoById(@RequestBody RequestDto dto){
+        boolean isDeleted = todoService.deleteTodoById(dto);
+        if (isDeleted){
+            return ResponseEntity.ok("정상 삭제됨");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 삭제 접근입니다");
+        }
+    }
 }
