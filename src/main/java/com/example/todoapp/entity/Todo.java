@@ -11,6 +11,7 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 public class Todo {
+//    private Long id;
     private String userName; //일정 등록한 사람 이름
     private String password; //비번
     private String todo; //할일 내용
