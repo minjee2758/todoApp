@@ -20,9 +20,9 @@ public class ToDoServiceImpl implements TodoService{
 
     @Override
     public ResponseDto saveTodo(RequestDto dto) { //투두 추가하기
-        Todo todo = new Todo(dto.getUserName(), dto.getPassword(), dto.getTodo(), dto.getDoDate(), LocalDateTime.now(), LocalDateTime.now()); //투두 내역 받아서
+        Todo todo = new Todo(dto. getId(), dto.getUserName(), dto.getPassword(), dto.getTodo(), dto.getDoDate(), LocalDateTime.now(), LocalDateTime.now()); //투두 내역 받아서
         todoRepository.saveTodo(todo); //레포지토리에 넘겨주자
-        return new ResponseDto(todo.getUserName(), dto.getTodo(), dto.getDoDate(), LocalDateTime.now(), LocalDateTime.now());
+        return new ResponseDto(todo.getId(), todo.getUserName(), dto.getTodo(), dto.getDoDate(), LocalDateTime.now(), LocalDateTime.now());
     }
 
     @Override
