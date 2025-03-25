@@ -20,12 +20,14 @@ public class JdbcTemplateTodoRepository implements TodoRepository{
     }
 
 
+    //저장하기
     @Override
     public void saveTodo(Todo todo) {
-        String sql = "INSERT INTO todo (userName, password, todo, doDate, createDate, updateDate) VALUES (?,?,?,?,?,?) "; //위에꺼랑 여기꺼랑 뭐가 더 좋은 방법일지?? -> 위에는 강의대로!
+        String sql = "INSERT INTO todo (userName, password, todo, doDate, createDate, updateDate) VALUES (?,?,?,?,?,?) ";
         jdbcTemplate.update(sql, todo.getUserName(), todo.getPassword(), todo.getTodo(),todo.getDoDate(), todo.getCreateDate(), todo.getUpdateDate());
     }
 
+    //전체 조회하기
     @Override
     public List<ResponseDto> findAllTodo() {
         String sql = "SELECT id, userName, todo, doDate, createDate, updateDate FROM todo ORDER BY updateDate Desc ";
@@ -41,6 +43,7 @@ public class JdbcTemplateTodoRepository implements TodoRepository{
         );
     }
 
+    //단건 조회하기
     @Override
     public ResponseDto findOneTodo(Long id){
         String sql = "SELECT * FROM todo WHERE id = ?";
@@ -56,12 +59,12 @@ public class JdbcTemplateTodoRepository implements TodoRepository{
         );
     }
 
+    //비밀번호 맞으면 수정하기
     @Override
     public boolean updateTodoById(RequestDto dto) {
         String findPW = "SELECT password FROM todo WHERE id = ?";
         String Pw = jdbcTemplate.queryForObject(findPW, new Object[]{dto.getId()}, String.class);
         if (!dto.getPassword().equals(Pw)) {
-
             System.out.println("잘못된 비번");
             return false;
         } else {
@@ -71,6 +74,7 @@ public class JdbcTemplateTodoRepository implements TodoRepository{
         }
     }
 
+    //비밀번호 맞으면 삭제하기
     @Override
     public boolean deleteTodoById(RequestDto dto) {
         String findPw = "SELECT password FROM todo WHERE id =?";

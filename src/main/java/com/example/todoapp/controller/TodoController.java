@@ -6,6 +6,7 @@ import com.example.todoapp.entity.Todo;
 import com.example.todoapp.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,17 +36,19 @@ public class TodoController {
         return todoService.findTodoById(id);
     }
 
+    //수정
     @PutMapping("/update")
     public ResponseEntity<String> updateTodoById(@RequestBody RequestDto dto){
         boolean isUpdated = todoService.updateTodoById(dto);
         if (isUpdated){
-            return ResponseEntity.ok("업뎃 됨!");
+            return ResponseEntity.ok("업뎃 됨!"); //문구 표시
         }
         else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 업뎃입니다");
         }
     }
 
+    //삭제
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteTodoById(@RequestBody RequestDto dto){
         boolean isDeleted = todoService.deleteTodoById(dto);
